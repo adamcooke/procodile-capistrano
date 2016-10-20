@@ -3,7 +3,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   namespace :procodile do
 
     task :start, :roles => fetch(:procodile_roles, [:app]) do
-      run procodile_command('start')
+      run procodile_command('start', "--tag #{current_revision[0,6]}")
     end
 
     task :stop, :roles => fetch(:procodile_roles, [:app]) do
@@ -11,7 +11,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     end
 
     task :restart, :roles => fetch(:procodile_roles, [:app]) do
-      run procodile_command('restart')
+      run procodile_command('restart', "--tag #{current_revision[0,6]}")
     end
 
     task :status, :roles => fetch(:procodile_roles, [:app]) do
@@ -27,7 +27,7 @@ Capistrano::Configuration.instance(:must_exist).load do
       if processes = fetch(:processes, nil)
         options = "-p #{processes} " + options
       end
-      command = "#{binary} #{command} -r #{current_path} #{options}"
+      command = "#{binary} #{command} --root #{current_path} #{options}"
       if user = fetch(:procodile_user, nil)
         "sudo -u #{user} #{command}"
       else
