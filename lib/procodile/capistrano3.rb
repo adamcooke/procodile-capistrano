@@ -20,9 +20,7 @@ namespace :procodile do
     end
   end
 
-  after 'deploy:start', "procodile:start"
-  after 'deploy:stop', "procodile:stop"
-  after 'deploy:restart', "procodile:restart"
+  after 'deploy:finished', "procodile:restart"
 
   def procodile_command(command, options = "")
     binary = fetch(:procodile_binary, 'procodile')
