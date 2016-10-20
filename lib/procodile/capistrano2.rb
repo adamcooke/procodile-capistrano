@@ -3,7 +3,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   namespace :procodile do
 
     task :start, :roles => fetch(:procodile_roles, [:app]) do
-      run procodile_command('start', "--tag #{current_revision[0,6]}")
+      run procodile_command('start', "--tag #{current_release.split('/').last}")
     end
 
     task :stop, :roles => fetch(:procodile_roles, [:app]) do
@@ -11,7 +11,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     end
 
     task :restart, :roles => fetch(:procodile_roles, [:app]) do
-      run procodile_command('restart', "--tag #{current_revision[0,6]}")
+      run procodile_command('restart', "--tag #{current_release.split('/').last}")
     end
 
     task :status, :roles => fetch(:procodile_roles, [:app]) do
