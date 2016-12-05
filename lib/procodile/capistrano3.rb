@@ -2,8 +2,8 @@ namespace :procodile do
   desc 'Start procodile processes'
   task :start do
     on fetch(:procodile_roles, roles(:app)) do
-      within current_path.to_s do
-        with rails_env: fetch(:stage).to_s do
+      within current_path do
+        with rails_env: fetch(:stage) do
           execute :bundle, :exec, procodile_command(:start)
         end
       end
@@ -13,8 +13,8 @@ namespace :procodile do
   desc 'Stop procodile processes'
   task :stop do
     on fetch(:procodile_roles, roles(:app)) do
-      within current_path.to_s do
-        with rails_env: fetch(:stage).to_s do
+      within current_path do
+        with rails_env: fetch(:stage) do
           execute :bundle, :exec, procodile_command(:stop)
         end
       end
@@ -24,8 +24,8 @@ namespace :procodile do
   desc 'Restart procodile processes'
   task :restart do
     on fetch(:procodile_roles, roles(:app)) do
-      within current_path.to_s do
-        with rails_env: fetch(:stage).to_s do
+      within current_path do
+        with rails_env: fetch(:stage) do
           execute :bundle, :exec, procodile_command(:restart)
         end
       end
