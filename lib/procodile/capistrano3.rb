@@ -32,7 +32,18 @@ namespace :procodile do
     end
   end
 
-  after 'deploy:finished', 'procodile:restart'
+  desc 'Status of procodile processes'
+  task :status do
+    on fetch(:procodile_roles, roles(:app)) do
+      within current_path do
+        with rails_env: fetch(:stage) do
+          execute :bundle, :exec, procodile_command(:status)
+        end
+      end
+    end
+  end
+
+  after 'deploy:finished', 'procodile:start'
 
   def procodile_command(command, options = '')
     binary = fetch(:procodile_binary, 'procodile')
