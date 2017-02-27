@@ -27,6 +27,10 @@ Capistrano::Configuration.instance(:must_exist).load do
       if processes = fetch(:processes, nil)
         options = "-p #{processes} " + options
       end
+
+      if procfile = fetch(:procodile_procfile, nil)
+        options = "--procfile #{procfile} " + options
+      end
       command = "#{binary} #{command} --root #{current_path} #{options}"
       if user = fetch(:procodile_user, nil)
         "sudo -u #{user} #{command}"
