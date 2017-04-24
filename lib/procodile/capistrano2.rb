@@ -3,15 +3,15 @@ Capistrano::Configuration.instance(:must_exist).load do
   namespace :procodile do
 
     task :start, :roles => fetch(:procodile_roles, [:app]) do
-      run procodile_command('start', "--tag #{current_release.split('/').last}")
+      run procodile_command('start', "--tag #{current_release.split('/').last}"), :except => {:procodile => false}
     end
 
     task :stop, :roles => fetch(:procodile_roles, [:app]) do
-      run procodile_command('stop')
+      run procodile_command('stop'), :except => {:procodile => false}
     end
 
     task :restart, :roles => fetch(:procodile_roles, [:app]) do
-      run procodile_command('restart', "--tag #{current_release.split('/').last}")
+      run procodile_command('restart', "--tag #{current_release.split('/').last}"), :except => {:procodile => false}
     end
 
     task :status, :roles => fetch(:procodile_roles, [:app]) do
