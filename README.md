@@ -12,7 +12,7 @@ These are recipes for Capistrano 2 and 3 which will automatically send the appro
 You can also pass a list of processes to the first three commands using the `processes` option. For example:
 
 ```
-cap procodole:restart -s "processes=worker"
+cap procodile:restart -s "processes=worker"
 ```
 
 ## Installation
